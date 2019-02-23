@@ -39,6 +39,7 @@ template: title-layout
 ---
 name: basic-compiler-structure
 layout: basic-layout
+# Basic Disection of Compiler
 - Front End (Lex, Parse, AST, IR)
 - Optimizer (Cleanup, Canocalization, Optimization)
 - Backend (Code Generation)
