@@ -16,15 +16,29 @@ template: title-layout
 name: FOAWTFT
 template: title-layout
 ## Fantastic Optimizations
-### And Where To Find Them
+#### And Where To Find Them
+
+---
+name: FOAWTFT-Goals
+template: basic-layout
+## What is the point?
+- To see how deep the rabit hole gets
+- To only know where to seek the beasts
+- To get an idea of what is happeninng behind the scenes
 
 ---
 name: Dragons-Lair
 template: title-layout
-### Dragon's Lair!
+### Book 1: Dragon's Lair!
 
 ---
 name: Dragon-Itself
-tempalte: title-layout
+template: title-layout
 ![dragon-book](./img/dragon-book.jpg)
 
+---
+name: basic-compiler-structure
+layout: basic-layout
+- Front End (Lex, Parse, AST, IR)
+- Optimizer (Cleanup, Canocalization, Optimization)
+- Backend (Code Generation)
