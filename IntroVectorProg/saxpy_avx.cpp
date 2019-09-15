@@ -29,14 +29,14 @@
 void saxpy_avx128(size_t n, float a, float *x, float *y, float *z) {
   __m128 a_vec = _mm_set1_ps(a);
 
-   for (size_t i = 0; i < n; i += sizeof(__m128) / sizeof(float)) {
-     __m128 x_vec = _mm_load_ps(&x[i]);
-     __m128 y_vec = _mm_load_ps(&y[i]);
-     __m128 res_vec = _mm_add_ps(_mm_mul_ps(a_vec, x_vec), y_vec);
-     _mm_store_ps(&z[i], res_vec);
-   }
- }
- #endif
+  for (size_t i = 0; i < n; i += sizeof(__m128) / sizeof(float)) {
+    __m128 x_vec = _mm_load_ps(&x[i]);
+    __m128 y_vec = _mm_load_ps(&y[i]);
+    __m128 res_vec = _mm_add_ps(_mm_mul_ps(a_vec, x_vec), y_vec);
+    _mm_store_ps(&z[i], res_vec);
+  }
+}
+#endif
 
 #if defined(__AVX2__)
 void saxpy_avx256(size_t n, float a, float *x, float *y, float *z) {
@@ -53,15 +53,15 @@ void saxpy_avx256(size_t n, float a, float *x, float *y, float *z) {
 
 #if defined(__AVX512F__)
 void saxpy_avx512(size_t n, float a, float *x, float *y, float *z) {
-   __m512 a_vec = _mm512_set1_ps(a);
+  __m512 a_vec = _mm512_set1_ps(a);
 
-   for (size_t i = 0; i < n; i += sizeof(__m512) / sizeof(float)) {
-     __m512 x_vec = _mm512_load_ps(&x[i]);
-     __m512 y_vec = _mm512_load_ps(&y[i]);
-     __m512 res_vec = _mm512_add_ps(_mm512_mul_ps(a_vec, x_vec), y_vec);
-     _mm512_store_ps(&z[i], res_vec);
-   }
- }
+  for (size_t i = 0; i < n; i += sizeof(__m512) / sizeof(float)) {
+    __m512 x_vec = _mm512_load_ps(&x[i]);
+    __m512 y_vec = _mm512_load_ps(&y[i]);
+    __m512 res_vec = _mm512_add_ps(_mm512_mul_ps(a_vec, x_vec), y_vec);
+    _mm512_store_ps(&z[i], res_vec);
+  }
+}
 #endif
 
 int main(int argc, const char *argv[]) {
@@ -90,13 +90,7 @@ int main(int argc, const char *argv[]) {
 
   auto start = high_resolution_clock::now();
   for (auto i = 0; i < itrs; i++) {
-#if defined(__AVX2__)
-    saxpy_avx256(n, a, x, y, z);
-#elif defined(__AVX512F__)
-    saxpy_avx512(n, a, x, y, z);
-#else
-    saxpy_avx128(n, a, x, y, z);
-#endif
+    saxpy_avx(n, a, x, y, z);
   }
   auto end = high_resolution_clock::now();
 
