@@ -7,8 +7,8 @@ clean:
 	rm -rf *.o *.out
 
 scalar: saxpy.cpp
-	$(CXX) saxpy.cpp -std=c++11 -march=native -DN=$(N) -fno-exceptions \
-		-fno-rtti -O0 -DITRS=$(ITRS) -Wall -Wextra -o saxpy_scalar.out
+	$(CXX) saxpy.cpp -std=c++11 -march=x86-64 -mno-avx -mno-avx2 -DN=$(N) -fno-exceptions \
+		-fno-rtti -fno-tree-vectorize -O0 -DITRS=$(ITRS) -Wall -Wextra -o saxpy_scalar.out
 
 omp: saxpy_omp.cpp
 	$(CXX) saxpy_omp.cpp -std=c++11 -O1 -march=native  -fno-exceptions \
@@ -16,7 +16,7 @@ omp: saxpy_omp.cpp
 		-o saxpy_omp.out
 
 avx: saxpy_avx.cpp
-	$(CXX) saxpy_avx.cpp -g -std=c++11 -O1 \
+	$(CXX) saxpy_avx.cpp -std=c++11 -O1 \
 		-march=native -DN=$(N) -DITRS=$(ITRS) -Wall -Wextra \
 		-fno-exceptions -fno-rtti -o saxpy_avx.out
 

@@ -95,8 +95,8 @@ int main(int argc, const char *argv[]) {
   auto end = high_resolution_clock::now();
 
   auto diff = duration_cast<milliseconds>(end - start);
-  std::cout << "AVX vectorized saxpy:\n"
-            << "\tNumber of Elements: " << N << "\n"
+  std::cout << "AVX vectorized saxpy using :\n"
+            << "\tNumber of Elements: " << (1 << N) << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " millis. Total time= " << diff.count() << " millis.\n";
