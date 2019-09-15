@@ -14,8 +14,7 @@
 
 void saxpy_omp(size_t n, float a, float *__restrict__ x, float *__restrict__ y,
                float *__restrict__ z) {
-//#pragma omp simd //aligned(x, y, z : 64) safelen(8)
-#pragma omp simd
+#pragma omp simd aligned(x, y, z : 64)
   for (size_t i = 0; i < n; i++) {
     z[i] = (a * x[i]) + y[i];
   }
