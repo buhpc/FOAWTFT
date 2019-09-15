@@ -1,8 +1,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
-#include <x86intrin.h>
-
+#include <omp.h>
 // clang-format off
 #ifndef N
 #  define N 20
@@ -15,7 +14,8 @@
 
 void saxpy_omp(size_t n, float a, float *__restrict__ x, float *__restrict__ y,
                float *__restrict__ z) {
-#pragma omp simd aligned(x, y, z : 64) safelen(8)
+//#pragma omp simd //aligned(x, y, z : 64) safelen(8)
+#pragma omp simd
   for (size_t i = 0; i < n; i++) {
     z[i] = (a * x[i]) + y[i];
   }
@@ -53,6 +53,7 @@ int main(int argc, const char *argv[]) {
 
   auto diff = duration_cast<milliseconds>(end - start);
   std::cout << "OMP vectorized saxpy:\n"
+            << "\tNumber of Elements: " << N << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " millis. Total time= " << diff.count() << " millis.\n";

@@ -49,6 +49,7 @@ int main(int argc, const char *argv[]) {
 
   auto diff = duration_cast<milliseconds>(end - start);
   std::cout << "Scalar saxpy:\n"
+            << "\tNumber of Elements: " << N << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " millis. Total time= " << diff.count() << " millis.\n";

@@ -60,6 +60,7 @@ int main(int argc, const char *argv[]) {
 
   auto diff = duration_cast<microseconds>(end - start);
   std::cout << "CUDA vectorized saxpy:\n"
+            << "\tNumber of Elements: " << N << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " micros. Total time= " << diff.count() << " micros.\n";
