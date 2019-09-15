@@ -96,7 +96,7 @@ int main(int argc, const char *argv[]) {
 
   auto diff = duration_cast<milliseconds>(end - start);
   std::cout << "AVX vectorized saxpy using :\n"
-            << "\tNumber of Elements: " << (1 << N) << "\n"
+            << "\tNumber of Elements: " << n << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " millis. Total time= " << diff.count() << " millis.\n";
