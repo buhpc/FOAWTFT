@@ -51,16 +51,18 @@ int main(int argc, const char *argv[]) {
   cudaMemcpy(d_x, x, n * sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(d_y, y, n * sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(d_z, z, n * sizeof(float), cudaMemcpyHostToDevice);
+  cudaDeviceSynchronize();
 
   auto start = high_resolution_clock::now();
   for (auto i = 0; i < itrs; i++) {
     saxpy_cuda<<<(n + 255) / 256, 256>>>(n, a, d_x, d_y, d_z);
+    cudaDeviceSynchronize();
   }
   auto end = high_resolution_clock::now();
 
   auto diff = duration_cast<microseconds>(end - start);
   std::cout << "CUDA vectorized saxpy:\n"
-            << "\tNumber of Elements: " << N << "\n"
+            << "\tNumber of Elements: " << (1 << N) << "\n"
             << "\tIterations = " << itrs << "\n\t"
             << "Average time = " << diff.count() / itrs
             << " micros. Total time= " << diff.count() << " micros.\n";
